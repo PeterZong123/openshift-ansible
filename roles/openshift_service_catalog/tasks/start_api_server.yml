@@ -18,5 +18,5 @@
   register: api_health
   until: "'ok' in api_health.content"
   retries: 60
-  delay: 10
+  delay: 20
   changed_when: false
