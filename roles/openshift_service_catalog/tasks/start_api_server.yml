@@ -17,6 +17,6 @@
     no_proxy: '*'
   register: api_health
   until: "'ok' in api_health.content"
-  retries: 60
+  retries: 120
   delay: 20
   changed_when: false
