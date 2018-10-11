@@ -4,6 +4,7 @@
     src: origin-dns.conf.j2
     dest: /etc/dnsmasq.d/origin-dns.conf
   notify: restart dnsmasq
+  notify: restart dbus
 
 - name: Deploy additional dnsmasq.conf
   template:
@@ -14,6 +15,7 @@
     mode: 0644
   when: openshift_node_dnsmasq_additional_config_file is defined
   notify: restart dnsmasq
+  notify: restart dbus
 
 - name: Enable dnsmasq
   systemd:
