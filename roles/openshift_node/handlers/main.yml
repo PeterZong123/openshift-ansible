@@ -7,6 +7,13 @@
   when:
   - (not skip_node_svc_handlers | default(False) | bool)
 
+- name: restart dbus
+  systemd:
+    name: dbus
+    state: restarted
+  when:
+  - (not skip_node_svc_handlers | default(False) | bool)
+
 - name: restart dnsmasq
   systemd:
     name: dnsmasq
