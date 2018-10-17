@@ -7,6 +7,13 @@
     state: add
     labels: "{{ openshift_service_catalog_nodeselector | default ({'openshift-infra': 'apiserver'}) | lib_utils_oo_dict_to_list_of_dict }}"
 
+# restart NetworkManager otherwise the next step may fail based on the test result
+- name: restart NetworkManager
+  systemd:
+    name: NetworkManager
+    state: restarted
+    enabled: True
+
 # wait to see that the apiserver is available
 - name: wait for api server to be ready
   uri:
@@ -17,6 +24,6 @@
     no_proxy: '*'
   register: api_health
   until: "'ok' in api_health.content"
-  retries: 120
-  delay: 20
+  retries: 60
+  delay: 10
   changed_when: false
